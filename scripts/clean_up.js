@@ -10,15 +10,16 @@ module.exports = function(robot) {
       var dayJP = weekDayJP[day];
       var patternNum = (parseInt((nObj.getTime() + 313200000) / 604800000)) % 2;
       var patternNumDairi = ((parseInt((nObj.getTime() + 313200000) / 1209600000)) % 3)+ 1;
+
+//      robot.send({room:'#clean'}, dayJP + '曜日');
+      robot.send({room:'#clean'}, '[本日の掃除当番]');
       //  pattern 1
       if( patternNum === 0){
-        robot.send({room:'#general'}, dayJP + '曜日');
-        robot.send({room:'#general'}, addSouziForPeople(patternNum, day, patternNumDairi));
+        robot.send({room:'#clean'}, addSouziForPeople(patternNum, day, patternNumDairi));
       }
       //  pattern 2
       if( patternNum === 1){
-        robot.send({room:'#general'}, dayJP + '曜日');
-        robot.send({room:'#general'}, addSouziForPeople(patternNum, day, patternNumDairi));
+        robot.send({room:'#clean'}, addSouziForPeople(patternNum, day, patternNumDairi));
       }
   },null,true);
 };
