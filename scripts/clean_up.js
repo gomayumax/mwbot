@@ -4,8 +4,8 @@ var souzi = ['フロア掃除機/棚','会議室掃除機/コロコロ','会議�
 var weekDayJP = ['日','月','火','水','木','金','土'];
 
 module.exports = function(robot) {
-  new CronJob('0 * 16 * * *',function(){
-      var nObj = new Date(2015,9,30);
+  new CronJob('0 * * * * *',function(){
+      var nObj = new Date();
       var day = nObj.getDay();
       var dayJP = weekDayJP[day];
       var patternNum = (parseInt((nObj.getTime() + 313200000) / 604800000)) % 2;
