@@ -8,25 +8,18 @@ var tobanList = [[0,1,2],[2,0,1],[1,2,0],[0,1,2],[2,0,1]];
     //web 3 1 2 0
     //thu 4 0 1 2
     //fri 5 2 0 1
- 
+
 module.exports = function(robot) {
   new CronJob('0 0 8 * * 1-5',function(){
-      var nObj = new Date();
-      var day = nObj.getDay();
-      var dayJP = weekDayJP[day];
-      var patternNum = (parseInt((nObj.getTime() + 313200000) / 604800000)) % 2;
-      var patternNumDairi = ((parseInt((nObj.getTime() + 313200000) / 1209600000)) % 3)+ 1;
+    var nObj = new Date();
+    var day = nObj.getDay();
+    var dayJP = weekDayJP[day];
+    var patternNum = (parseInt((nObj.getTime() + 313200000) / 604800000)) % 2;
+    var patternNumDairi = ((parseInt((nObj.getTime() + 313200000) / 1209600000)) % 3)+ 1;
 
 //      robot.send({room:'#clean'}, dayJP + '曜日');
-      robot.send({room:'#clean'}, '[本日の掃除当番]');
-      //  pattern 1
-      if( patternNum === 0){
-        robot.send({room:'#clean'}, addSouziForPeople(patternNum, day, patternNumDairi));
-      }
-      //  pattern 2
-      if( patternNum === 1){
-        robot.send({room:'#clean'}, addSouziForPeople(patternNum, day, patternNumDairi));
-      }
+    robot.send({room:'#clean'}, '[本日の掃除当番]');
+    robot.send({room:'#clean'}, addSouziForPeople(patternNum, day, patternNumDairi));
   },null,true);
 };
 
@@ -35,8 +28,8 @@ function addSouziForPeople(patternNum, day, patternNumDairi) {
   for(var num in people[patternNum] ){
     //掃除当番の添字作成
     var souziNum = tobanList[day-1][num];
-    var toban = souzi[souziNum]; 
-    //北田さんかつ金曜日だけ代理を立てる    
+    var toban = souzi[souziNum];
+    //北田さんかつ金曜日だけ代理を立てる
     if(day === 5 && people[patternNum][num] === '北田' ){
       if(patternNumDairi === 2){patternNumDairi = 0;}
       else if(patternNumDairi === 3){patternNumDairi = 2;}
